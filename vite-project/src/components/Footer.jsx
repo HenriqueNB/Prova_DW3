@@ -1,11 +1,11 @@
-// components/Footer.jsx
 import React from 'react';
 
 function Footer() {
+  const data = new Date().toLocaleDateString('pt-BR');
   return (
-    <footer className="footer">
-      <p>&copy; José Henrique Nascimneto Bessa | Data 14/04/2026</p>
-    </footer>
+    <div className="footer">
+      <p>Desenvolvido por: José Henrique Nascimento Bessa | Data: {data}</p>
+    </div>
   );
 }
 

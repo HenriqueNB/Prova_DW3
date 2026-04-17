@@ -1,10 +1,9 @@
-// components/StatusBar.jsx
 import React from 'react';
 
-function StatusBar() {
+function StatusBar({ titulo }) {
   return (
     <div className="status-bar">
-      <h1>🎬 Catálogo de Filmes ou Séries</h1>
+      <h1>{titulo}</h1>
     </div>
   );
 }

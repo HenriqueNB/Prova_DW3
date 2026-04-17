@@ -1,47 +1,39 @@
-// components/FormFilme.jsx
 import React, { useState } from 'react';
 
-function FormFilme({ onAdicionarFilme }) {
-  const [novoFilme, setNovoFilme] = useState({ nome: '', genero: '' });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNovoFilme({ ...novoFilme, [name]: value });
-  };
+function FormFilme({ onAdd }) {
+  const [nome, setNome] = useState('');
+  const [genero, setGenero] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (novoFilme.nome.trim() && novoFilme.genero.trim()) {
-      onAdicionarFilme({
-        id: Date.now(),
-        nome: novoFilme.nome,
-        genero: novoFilme.genero
-      });
-      setNovoFilme({ nome: '', genero: '' });
+    if (nome.trim() === '' || genero.trim() === '') {
+      alert('Preencha todos os campos');
+      return;
     }
+    onAdd({ nome, genero });
+    setNome('');
+    setGenero('');
   };
 
   return (
     <div className="form-container">
-      <h2>📝 Cadastrar Novo Filme/Série</h2>
+      <h2>Adicionar Filme/Série</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="nome"
-          placeholder="Nome do Filme/Série"
-          value={novoFilme.nome}
-          onChange={handleInputChange}
+          placeholder="Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
           required
         />
         <input
           type="text"
-          name="genero"
           placeholder="Gênero"
-          value={novoFilme.genero}
-          onChange={handleInputChange}
+          value={genero}
+          onChange={(e) => setGenero(e.target.value)}
           required
         />
-        <button type="submit">➕ Adicionar</button>
+        <button type="submit">Salvar no Firestore</button>
       </form>
     </div>
   );

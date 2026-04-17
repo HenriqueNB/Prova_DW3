@@ -1,22 +1,42 @@
-// components/FilmeCard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 
-function FilmeCard({ filme, onRemover }) {
+function FormFilme({ onAdd }) {
+  const [nome, setNome] = useState('');
+  const [genero, setGenero] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (nome.trim() === '' || genero.trim() === '') {
+      alert('⚠️ Preencha todos os campos');
+      return;
+    }
+    onAdd({ nome, genero });
+    setNome('');
+    setGenero('');
+  };
+
   return (
-    <div className="filme-card">
-      <div className="filme-info">
-        <h3>{filme.nome}</h3>
-        <p><span className="genero-tag">{filme.genero}</span></p>
-      </div>
-      <button 
-        className="btn-remover"
-        onClick={() => onRemover(filme.id)}
-        title="Remover filme"
-      >
-        ❌
-      </button>
+    <div className="form-container">
+      <h2>➕ Adicionar Filme/Série</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Nome do Filme/Série"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Gênero"
+          value={genero}
+          onChange={(e) => setGenero(e.target.value)}
+          required
+        />
+        <button type="submit">💾 Salvar no Firestore</button>
+      </form>
     </div>
   );
 }
 
-export default FilmeCard;
+export default FormFilme;
